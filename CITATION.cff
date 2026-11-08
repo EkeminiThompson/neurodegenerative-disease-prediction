@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "Multilevel Prediction of Alzheimer's and Parkinson's Disease Using Clinical, Neuroimaging and EEG Features with External Validation"
+type: software
+version: 0.1.0
+date-released: 2026-11-08
+authors:
+  - family-names: Thompson
+    given-names: Ekemini
+repository-code: "https://github.com/EkeminiThompson/neurodegenerative-disease-prediction"
+license: MIT
+keywords:
+  - Parkinson's disease
+  - Alzheimer's disease
+  - EEG
+  - machine learning
+  - external validation
+  - domain shift

@@ -1,0 +1,33 @@
+pipeline: alzheimers
+status:
+  overall: planned_not_started
+  reason: >
+    OASIS-3 requires NITRC registration and a data use agreement; ADNI requires an approved
+    application and signed DUA; neither was accessible in the build session, and access
+    restrictions are not bypassed. No Alzheimer's model has been trained and no
+    Alzheimer's result is reported.
+datasets:
+  oasis3:
+    url: https://www.oasis-brains.org/
+    access: NITRC-IR registration + OASIS data use agreement
+    reported_scale: "1,378 participants; 2,842 MR sessions (per OASIS website, 2026-11-08)"
+    role: development_candidate
+  adni:
+    url: https://adni.loni.usc.edu/
+    access: ADNI application + Data Use Agreement via LONI IDA
+    role: external_candidate
+  addi:
+    url: https://www.alzheimersdata.org/discovery-portal
+    status: not investigated in the build session
+labels:
+  note: >
+    Level-1 classes (CN / MCI / AD) and Level-2 targets (CDR, MMSE, progression) MUST be
+    mapped from each dataset's data dictionary after access is granted. OASIS-3 and ADNI
+    define diagnosis differently (clinical dementia rating vs. ADNI diagnostic criteria);
+    mapping rules go in docs/data_dictionary.md before any training.
+mri_features:
+  planned: [FreeSurfer regional volumes and cortical thickness (tabular), eTIV-normalised]
+  qc: [FreeSurfer QC flags, manual exclusion list logged]
+external_validation:
+  design: train OASIS-3 -> test ADNI, and reverse; harmonise only variables defined in both
+  harmonisation_note: scanner/site effects are expected; report a domain-classifier AUC first

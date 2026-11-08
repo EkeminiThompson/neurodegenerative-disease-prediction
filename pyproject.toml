@@ -1,0 +1,43 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ndpred"
+version = "0.1.0"
+description = "Leakage-safe multimodal ML framework for Alzheimer's and Parkinson's disease prediction with external validation"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+dependencies = [
+  "numpy>=1.26",
+  "scipy>=1.11",
+  "pandas>=2.1",
+  "scikit-learn>=1.4",
+  "pyyaml>=6.0",
+  "matplotlib>=3.8",
+]
+
+[project.optional-dependencies]
+eeg = ["mne>=1.6"]
+mri = ["nibabel>=5.2", "nilearn>=0.10", "SimpleITK>=2.3"]
+boost = ["xgboost>=2.0", "lightgbm>=4.3"]
+explain = ["shap>=0.45"]
+deeplearning = ["torch>=2.2"]
+data = ["openneuro-py>=2024.2"]
+dev = ["pytest>=8", "ruff>=0.5"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 110
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B"]
+ignore = ["B905"]

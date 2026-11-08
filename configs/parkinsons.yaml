@@ -1,0 +1,37 @@
+pipeline: parkinsons
+status:
+  metadata_experiments: completed          # E0, E1 (ds007526 clinical metadata only)
+  eeg_experiments: implemented_not_run     # EEG signals were not downloadable in the build session
+datasets:
+  ds007526:
+    role: development_or_external
+    version: "1.0.2"
+    doi: 10.18112/openneuro.ds007526.v1.0.2
+    licence: CC0
+    modality: EEG (65 ch, 250 Hz), rest + treadmill walking
+    labels: {source: participants.tsv column "group", HC: 0, PD: 1}
+    severity_targets: [updrs_part_iii, updrs_total]   # no Hoehn & Yahr in participants.tsv
+  ds002778:
+    role: external_or_small_development
+    version: "1.0.5"
+    doi: 10.18112/openneuro.ds002778.v1.0.5
+    licence: CC0
+    modality: EEG (40 ch, 512 Hz BioSemi), rest; PD recorded ON and OFF medication
+    labels: {source: participant_id prefix sub-hc / sub-pd (README names the groups)}
+    severity_targets: [hoehn_yahr, updrs_total]       # beh JSON, PD only, 2 H&Y levels
+    steward_request: "Email arockhil@uoregon.edu before submitting a manuscript"
+  ppmi:
+    role: future_validation
+    access: application + data use agreement (not accessed)
+eeg_preprocessing:
+  band_pass_hz: [1, 45]
+  resample_hz: 250
+  reference: average
+  window_s: 4
+  reject_ptp_uv: 200
+  min_clean_windows: 10
+features:
+  bands_hz: {delta: [1, 4], theta: [4, 8], alpha: [8, 13], beta: [13, 30], gamma: [30, 45]}
+  cross_cohort_levels: [global, region]   # montages differ; channel-level is within-cohort only
+clinical_features_for_classification: [age, sex, moca_or_mmse]
+excluded_as_label_leaking: [updrs_part_iii, updrs_total, disease_duration, ledd, pigd_score, td_score]

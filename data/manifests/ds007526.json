@@ -1,0 +1,34 @@
+{
+  "dataset": "ds007526",
+  "eeg_recordings_by_task": {
+    "task-rest": 144,
+    "task-walk": 133
+  },
+  "example_sidecar": {
+    "EEGChannelCount": 65,
+    "Manufacturer": "n/a",
+    "PowerLineFrequency": 50.0,
+    "SamplingFrequency": 250.0
+  },
+  "group_counts": {
+    "HC": 28,
+    "PD": 116
+  },
+  "mirror_commit": "3644d723a59035e0f12bb31eba93fb53e5e4cad6",
+  "n_eeg_recordings": 277,
+  "n_participants": 144,
+  "non_missing": {
+    "age": 144,
+    "cohort": 144,
+    "disease_duration": 116,
+    "group": 144,
+    "label": 144,
+    "ledd": 115,
+    "moca": 140,
+    "participant_id": 144,
+    "sex": 144,
+    "updrs_iii": 139,
+    "updrs_total": 139
+  },
+  "participants_tsv_sha256": "f6dc5ddcfc55999ecd11a5751fb4c7bae10639229534acaf9b76d4e74358e2c3"
+}

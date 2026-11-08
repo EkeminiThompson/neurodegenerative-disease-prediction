@@ -1,0 +1,4 @@
+experiment,model,n,MAE,Spearman
+E1 UPDRS-III in PD,mean_baseline,113,10.16 (8.81-11.57),-0.198
+E1 UPDRS-III in PD,ridge,113,8.26 (6.93-9.69),0.463
+E1 UPDRS-III in PD,rf_regressor,113,8.60 (7.29-9.94),0.456

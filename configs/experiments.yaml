@@ -1,0 +1,18 @@
+# Global experiment settings (referenced by scripts and docs/experimental_protocol.md)
+seed: 20261108
+cv:
+  n_splits: 5
+  n_repeats_clinical: 20      # scripts/run_clinical_baseline.py
+  n_repeats_eeg: 20           # scripts/run_eeg_experiments.py
+  n_repeats_external_internal: 10
+  splitter: StratifiedGroupKFold   # groups = participant_id
+bootstrap:
+  n_boot: 2000
+  unit: participant
+  alpha: 0.05
+models: [logreg, rf, svm, xgboost, lightgbm]
+feature_selection:
+  method: SelectKBest(f_classif)
+  fitted_inside_training_folds: true
+imbalance: class_weight=balanced (sklearn / LightGBM); scale_pos_weight from training labels (XGBoost)
+tracking: reports/results/runs.jsonl   # one JSON line per run with config hash and env

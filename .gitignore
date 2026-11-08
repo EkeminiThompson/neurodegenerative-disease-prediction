@@ -1,0 +1,36 @@
+# Data: never commit raw or restricted participant-level data
+data/raw/*
+data/interim/*
+data/processed/*
+data/external/*
+!data/**/.gitkeep
+*.set
+*.fdt
+*.bdf
+*.edf
+*.vhdr
+*.eeg
+*.nii
+*.nii.gz
+*.mgz
+
+# Models and tracking
+*.pt
+*.pth
+*.ckpt
+*.joblib
+mlruns/
+experiments/**/runs/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+.pytest_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# Secrets
+.env
+*.pem

@@ -1,0 +1,40 @@
+{
+  "dataset": "ds002778",
+  "eeg_recordings_by_task": {
+    "task-rest": 46
+  },
+  "example_sidecar": {
+    "EEGChannelCount": 40,
+    "Manufacturer": "Biosemi",
+    "PowerLineFrequency": 60,
+    "SamplingFrequency": 512.0
+  },
+  "group_counts": {
+    "HC": 16,
+    "PD": 15
+  },
+  "hoehn_yahr_non_missing_sessions": 30,
+  "hoehn_yahr_values": {
+    "2.0": 15,
+    "3.0": 15
+  },
+  "mirror_commit": "2890cbd8da62179735aae536a520008154630dd6",
+  "n_eeg_recordings": 46,
+  "n_participants": 31,
+  "non_missing": {
+    "age": 31,
+    "cohort": 31,
+    "disease_duration": 15,
+    "group": 31,
+    "label": 31,
+    "mmse": 31,
+    "naart": 31,
+    "participant_id": 31,
+    "sex": 31
+  },
+  "participants_tsv_sha256": "e26c2cd97197a851347b2d2ce6f3861fd62370f38d1873ea67576dc1a4deea21",
+  "pd_sessions": {
+    "off": 15,
+    "on": 15
+  }
+}
