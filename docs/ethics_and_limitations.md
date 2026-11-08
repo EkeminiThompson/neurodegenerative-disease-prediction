@@ -10,7 +10,8 @@
 
 ## Limitations of the completed work (E0, E1)
 
-- **Confounding by age.** In ds007526 healthy controls are about 5 years younger than PD participants. Age alone reaches ROC-AUC ≈ 0.61-0.68, so most of the E0 signal is demographic and says nothing about neurophysiology.
+- **Age confounding (confirmed by A3).** In an age-matched subset (n=54) clinical AUCs are indistinguishable from chance (all CIs include 0.5), so the E0 signal is demographic. Sub-0.5 point estimates are cross-validation artefacts of noise in tiny samples, not information.
+- Healthy controls in ds007526 are about 5 years younger than PD participants (60.8 vs 66.1); age alone reaches ROC-AUC 0.61-0.68 in E0.
 - **Small, imbalanced cohort.** 144 participants (116 PD / 28 HC): wide intervals, and threshold metrics at 0.5 are unstable (e.g. the SVM predicts everyone as PD at 0.5).
 - **Single site, single visit.** No external cohort has been tested for E0/E1; they are within-cohort estimates only.
 - **Selection.** PD inclusion criteria (H&Y ≤ 3, MoCA ≥ 21) restrict severity range, so E1 does not generalise to advanced PD.
@@ -19,6 +20,7 @@
 
 ## Limitations of the project as a whole
 
+- Sex-subgroup results (A4) rest on 12-15 healthy controls per sex and are exploratory.
 - No EEG or MRI signal was analysed: the signal files were not downloadable in the build environment. Every EEG, MRI, explainability, multimodal and external-validation component is therefore **implemented but not run**, or **planned**.
 - No Alzheimer's component has been executed or validated.
 - Unit tests use hand-built fixtures to test code; they are not evidence about disease.

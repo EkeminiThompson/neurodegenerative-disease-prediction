@@ -10,12 +10,17 @@ cannot be tuned after seeing outcomes. Anything run outside this list is labelle
 |---|---|---|---|---|---|
 | E0 | How well do basic demographics and cognition separate PD from HC, and how much is age confounding? | ds007526, n=144 | `age`; `age+sex+moca` | PD vs HC | 5-fold stratified group CV × 20 repeats; 5 models; 2,000-draw participant bootstrap |
 | E1 | Can age, sex, MoCA, disease duration and LEDD predict UPDRS-III within PD? | ds007526 PD with UPDRS-III, n=113 | those five | UPDRS part III (points) | same CV; ridge and random forest vs a training-mean baseline; MAE and Spearman |
+| A1 | Do models differ? | as E0 complete cases, n=140 | `age+sex+moca` | PD vs HC | 10 repeats; paired participant-bootstrap AUC differences (2,000 draws), Holm correction |
+| A2 | Calibration | as A1 | `age+sex+moca` | PD vs HC | reliability curves (5 bins), Brier, ECE |
+| A3 | How much of E0 is age confounding? | 1:1 age-matched subset (caliper 3 y), n=54 | age; sex+moca; age+sex+moca | PD vs HC | same CV |
+| A4 | Subgroup performance | out-of-fold predictions of A1 | by sex | | participant bootstrap (1,000 draws) |
+| A5 | Does tuning help? | as A1 | `age+sex+moca` | PD vs HC | nested: outer 5-fold x3, inner grouped 3-fold grid (logreg C; RF leaf/depth) |
 
 ## Defined, not run (require the EEG signals)
 
 | ID | Question | Protocol |
 |---|---|---|
-| P1 | Within-cohort PD vs HC from resting EEG (ds007526) | `scripts/extract_eeg_features.py` then `scripts/run_eeg_experiments.py`; feature sets: clinical, EEG region/global, clinical+EEG; k=20 selected features inside folds |
+| P1 | Within-cohort PD vs HC from resting EEG (ds007526); **must also be reported on the age-matched subset (A3 design)** | `scripts/extract_eeg_features.py` then `scripts/run_eeg_experiments.py`; feature sets: clinical, EEG region/global, clinical+EEG; k=20 selected features inside folds |
 | P2 | External validation ds007526 → ds002778 and ds002778 → ds007526 | `scripts/run_external_validation.py`; shared global/region features; raw and per-cohort z-scored conditions; report internal vs external AUC, AUC drop, calibration, domain-classifier AUC, top standardized mean differences |
 | P3 | Medication state (ds002778 only) | ON vs OFF sessions as a within-participant sensitivity analysis; descriptive only (n=15) |
 | P4 | Resting vs walking EEG (ds007526) | extract `task-walk` features and repeat P1; primary analysis stays resting state |

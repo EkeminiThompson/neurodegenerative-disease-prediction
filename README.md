@@ -7,11 +7,12 @@ A reproducible, leakage-safe multimodal machine-learning framework for Alzheimer
 | Component | Status |
 |---|---|
 | Dataset audit of ds007526, ds002778 (counts, variables, licences, access) | **Completed**, verified from source metadata (`docs/dataset_audit.md`) |
-| PD clinical-metadata baselines (E0 PD vs HC, E1 UPDRS-III in PD) on ds007526 | **Completed**, real data, results below |
+| PD clinical-metadata baselines (E0 PD vs HC, E1 UPDRS-III in PD) and extended analyses A1-A5 (paired model comparison, calibration, age-matched sensitivity, sex subgroups, nested CV) on ds007526 | **Completed**, real data, results below |
 | EEG preprocessing, feature extraction, within-cohort and cross-cohort external validation, domain-shift diagnostics, late fusion, SHAP | **Implemented and unit-tested on toy fixtures; not run on real EEG.** The EEG signal files could not be downloaded in the build environment. |
 | Alzheimer's pipeline (OASIS-3, ADNI) | **Planned only.** Needs approved data access; nothing trained, nothing reported. |
 | PPMI | **Planned.** Application + DUA required; not accessed. |
-| CNN/EEGNet/transformer models, nested-CV tuning runs, model-comparison statistics, notebooks | **Not done** |
+| Notebooks 01 (exploration) and 03 (PD analysis) | **Completed and executed**; 02 (AD) and 04 (external validation) are placeholders stating "not run" |
+| CNN/EEGNet/transformer models | **Not done** (not justified at n=144 / n=31) |
 
 No synthetic or randomly generated data is used as experimental evidence anywhere in this repository. Unit tests use tiny hand-built fixtures to test code and are never used for results.
 
@@ -69,6 +70,7 @@ python scripts/download_eeg.py --dataset ds002778
 ```bash
 python scripts/fetch_metadata.py
 python scripts/run_clinical_baseline.py --repeats 20   # ~8 min on one CPU
+python scripts/run_clinical_extended.py --repeats 10   # ~25 min on one CPU
 python scripts/make_figures.py
 ```
 
@@ -115,6 +117,27 @@ ROC-AUC (95% CI):
 | Random forest | 8.60 (7.29-9.94) | 0.456 |
 
 The ridge and random forest models reduce error by roughly 2 points over the mean baseline; the intervals overlap, so this is suggestive, not conclusive. Disease duration unit is undocumented upstream. Severity categories (Hoehn & Yahr) are not available in ds007526; in ds002778 H&Y has only two levels in 15 participants and is not modelled.
+
+
+### Extended analyses A1-A5 (ds007526, age + sex + MoCA; n = 140 with complete features: 113 PD / 27 HC)
+
+**A3: age-matched sensitivity (the most important result).** Each HC was matched 1:1 to the PD participant closest in age (caliper 3 years): n = 54 (27 PD / 27 HC), mean age 61.6 vs 61.3 years. ROC-AUC (95% CI), logistic regression:
+
+| Features | AUC | 95% CI |
+|---|---|---|
+| Age only | 0.346 | 0.212-0.505 |
+| Sex + MoCA | 0.451 | 0.291-0.616 |
+| Age + sex + MoCA | 0.433 | 0.276-0.598 |
+
+Once age is balanced, **clinical metadata carries no usable discriminative signal**: all intervals include 0.5. (Point estimates below 0.5 are a known artefact of cross-validating noise in tiny balanced samples, not information; random forest on age only even gives 0.152, which should be read as "no signal", not "anti-signal".) The E0 AUC of about 0.7 is therefore explained by age and sex imbalance. This sets the correct bar for EEG models: they must beat chance in an age-matched analysis, not 0.7 in the full cohort.
+
+**A1: paired model comparison.** Participant-level paired bootstrap of AUC differences between all 10 model pairs: none is significant after Holm correction (smallest raw p = 0.095, logistic regression vs SVM; all Holm-adjusted p ≥ 0.95). The models are statistically indistinguishable on this feature set.
+
+**A2: calibration.** All models are poorly calibrated at the cohort's 81% PD prevalence (ECE 0.013-0.253 across models; the SVM's low ECE only reflects that it predicts close to the 81% prior for everyone, not good discrimination; see `reports/tables/a2_calibration.csv` and `reports/figures/a2_calibration.png`). Probabilities from these baselines should not be interpreted as risks.
+
+**A4: sex subgroups.** Apparent signal is concentrated in women (logistic regression AUC 0.756, 0.612-0.875; 15 HC) and absent in men (0.600, 0.439-0.772; 12 HC). Tree models are at or below chance in men. Subgroups contain only 12-15 healthy controls, so intervals are wide and this is exploratory.
+
+**A5: nested CV (inner 3-fold grouped tuning).** Logistic regression 0.681 (0.565-0.783), random forest 0.705 (0.596-0.803), n = 140. Tuning does not change the picture relative to the untuned baselines.
 
 ### External validation, EEG, Alzheimer's, explainability
 

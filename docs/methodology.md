@@ -28,5 +28,6 @@ data. Components that could not be run are labelled "implemented, not run" or "p
 
 - No MRI feature extraction or Alzheimer's pipeline exists (planned; access-gated).
 - Deep models (EEGNet, CNN, transformers) are not implemented. With 144 and 31 participants they are not justified, and the dataset steward of ds002778 advises against ML on that cohort at all.
+- Notebooks 02 and 04 are placeholders because the AD data and EEG signals were unavailable.
 - No time-to-event or longitudinal model: the available open metadata is single-visit.
-- Nested cross-validation hooks exist in `repeated_group_cv` (inner grid search is detected via `cv`/`param_grid`) but no tuned experiment has been run.
+- Nested cross-validation (inner grouped 3-fold grid search) has been run once, for the clinical-only baselines (A5), via `scripts/run_clinical_extended.py`; it has not yet been applied to EEG features.
