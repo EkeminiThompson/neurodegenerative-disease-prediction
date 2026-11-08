@@ -16,6 +16,10 @@ A reproducible, leakage-safe multimodal machine-learning framework for Alzheimer
 
 No synthetic or randomly generated data is used as experimental evidence anywhere in this repository. Unit tests use tiny hand-built fixtures to test code and are never used for results.
 
+## Paper
+
+[`paper/manuscript.pdf`](paper/manuscript.pdf) ([source](paper/manuscript.md)): *Age confounding explains clinical-metadata classification of Parkinson's disease in an open EEG cohort: a leakage-safe baseline and a pre-specified protocol for resting and walking EEG.* Preprint, **not peer reviewed**; it reports only the completed clinical-metadata analyses and a protocol for EEG, and makes no claim about EEG performance. Rebuild with `pandoc paper/manuscript.md -o paper/manuscript.pdf --pdf-engine=xelatex --resource-path=paper:.`
+
 ## Research problem and questions
 
 Open PD and AD datasets are small and heterogeneous, and many published classifiers are evaluated within a single cohort with unclear leakage control. This project asks:
@@ -129,7 +133,7 @@ The ridge and random forest models reduce error by roughly 2 points over the mea
 | Sex + MoCA | 0.451 | 0.291-0.616 |
 | Age + sex + MoCA | 0.433 | 0.276-0.598 |
 
-Once age is balanced, **clinical metadata carries no usable discriminative signal**: all intervals include 0.5. (Point estimates below 0.5 are a known artefact of cross-validating noise in tiny balanced samples, not information; random forest on age only even gives 0.152, which should be read as "no signal", not "anti-signal".) The E0 AUC of about 0.7 is therefore explained by age and sex imbalance. This sets the correct bar for EEG models: they must beat chance in an age-matched analysis, not 0.7 in the full cohort.
+Once age is balanced, **clinical metadata carries no usable discriminative signal**: all intervals include 0.5. (Point estimates below 0.5 are a known artefact of cross-validating noise in tiny balanced samples, not information; random forest on age only even gives 0.152, which should be read as "no signal", not "anti-signal".) The E0 AUC of about 0.7 is therefore explained by age and sex imbalance. With 54 participants the intervals are wide, so a modest true effect cannot be excluded; the claim is that the full-cohort AUC is not evidence of disease-related information. This sets the correct bar for EEG models: they must beat chance in an age-matched analysis, not 0.7 in the full cohort.
 
 **A1: paired model comparison.** Participant-level paired bootstrap of AUC differences between all 10 model pairs: none is significant after Holm correction (smallest raw p = 0.095, logistic regression vs SVM; all Holm-adjusted p ≥ 0.95). The models are statistically indistinguishable on this feature set.
 

@@ -16,3 +16,6 @@ keywords:
   - machine learning
   - external validation
   - domain shift
+abstract: >
+  Open, tested framework for leakage-safe, confound-aware prediction of Parkinson's and
+  Alzheimer's disease with external validation. Preprint (not peer reviewed) in paper/manuscript.pdf.

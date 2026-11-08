@@ -35,3 +35,25 @@ ax.invert_yaxis()
 fig.tight_layout()
 fig.savefig(out / "e0_clinical_auc_forest.png", dpi=200)
 print("wrote", out / "e0_clinical_auc_forest.png")
+
+
+# ---- A3: age-matched sensitivity (reports/tables/a3_age_matched_sensitivity.csv) ----
+import pandas as pd  # noqa: E402
+
+a3 = pd.read_csv("reports/tables/a3_age_matched_sensitivity.csv")
+a3["label"] = a3["features"].str.replace("_", " ") + " | " + a3["model"]
+fig, ax = plt.subplots(figsize=(7, 3.6))
+ypos = list(range(len(a3)))
+ax.hlines(ypos, a3["ci_lo"], a3["ci_hi"], color="#DD8452", lw=2)
+ax.scatter(a3["roc_auc"], ypos, color="#DD8452", zorder=3)
+ax.axvline(0.5, color="grey", ls="--", lw=1)
+ax.set_yticks(ypos)
+ax.set_yticklabels(a3["label"], fontsize=8)
+ax.set_xlim(0, 1)
+ax.set_xlabel("ROC-AUC (95% participant-level bootstrap CI)")
+ax.set_title("A3: age-matched subset of ds007526 (n=54; 27 PD / 27 HC; mean age 61.6 vs 61.3 y)",
+             fontsize=9)
+ax.invert_yaxis()
+fig.tight_layout()
+fig.savefig(out / "a3_age_matched_forest.png", dpi=200)
+print("wrote", out / "a3_age_matched_forest.png")
