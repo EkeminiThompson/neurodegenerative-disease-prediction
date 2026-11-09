@@ -46,7 +46,7 @@ def main() -> None:
     assert df["participant_id"].is_unique, "expected one row per participant"
     print(f"{args.dataset}: {len(df)} participants with EEG ({df['label'].sum()} PD)")
 
-    eeg_cols = [c for c in df.columns if c.startswith(("global_", "reg_"))]
+    eeg_cols = [c for c in df.columns if c.startswith(("core_", "reg_"))]
     sets = {"clinical": CLINICAL[args.dataset], "eeg_region": eeg_cols,
             "clinical+eeg": CLINICAL[args.dataset] + eeg_cols}
     rows = []

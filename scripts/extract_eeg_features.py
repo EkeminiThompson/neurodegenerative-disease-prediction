@@ -15,7 +15,7 @@ from pathlib import Path
 
 import pandas as pd
 
-from ndpred.features.eeg import REGIONS_1020, participant_features
+from ndpred.features.eeg import CORE_CHANNELS, REGIONS_1020, participant_features
 from ndpred.preprocessing.eeg import EEGConfig, preprocess, read_raw, usable
 
 
@@ -56,7 +56,7 @@ def main() -> None:
             dropped.append({"participant_id": sub, "session": ses, "reason": "too_few_clean_windows",
                             **qc})
             continue
-        feats = participant_features(win, cfg.sfreq, names, REGIONS_1020)
+        feats = participant_features(win, cfg.sfreq, names, REGIONS_1020, CORE_CHANNELS)
         rows.append({"participant_id": sub, "session": ses, **qc, **feats})
         print(f"{sub} {ses}: {qc['n_windows_kept']}/{qc['n_windows_total']} windows")
     tag = f"{args.dataset}_{args.task}"

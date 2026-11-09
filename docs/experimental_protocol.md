@@ -21,9 +21,10 @@ cannot be tuned after seeing outcomes. Anything run outside this list is labelle
 | ID | Question | Protocol |
 |---|---|---|
 | P1 | Within-cohort PD vs HC from resting EEG (ds007526); **must also be reported on the age-matched subset (A3 design)** | `scripts/extract_eeg_features.py` then `scripts/run_eeg_experiments.py`; feature sets: clinical, EEG region/global, clinical+EEG; k=20 selected features inside folds |
-| P2 | External validation ds007526 → ds002778 and ds002778 → ds007526 | `scripts/run_external_validation.py`; shared global/region features; raw and per-cohort z-scored conditions; report internal vs external AUC, AUC drop, calibration, domain-classifier AUC, top standardized mean differences |
+| P2 | External validation ds007526 → ds002778 (one direction; training on ds002778's 15 patients is excluded from the primary analysis following its maintainers' advice; `--include-reverse` is exploratory) | `scripts/run_external_validation.py`; features over the 31 shared scalp channels (`core_*`) and region-level (`reg_*`); raw and per-cohort z-scored conditions; report internal vs external AUC, AUC drop, calibration, domain-classifier AUC, top standardized mean differences |
 | P3 | Medication state (ds002778 only) | ON vs OFF sessions as a within-participant sensitivity analysis; descriptive only (n=15) |
-| P4 | Resting vs walking EEG (ds007526) | extract `task-walk` features and repeat P1; primary analysis stays resting state |
+| P4 | Resting vs walking EEG (ds007526) | extract `--task walk` features and repeat P1; primary analysis stays resting state. Non-scalp channels (EOG1-4, VREF; EXG1-8, Status) are always dropped before re-referencing |
+| P6 | Descriptive longitudinal summary (ds007526, n=39 follow-ups) | `scripts/longitudinal_descriptives.py`; no predictive claim (medication state undocumented) |
 | P5 | Explainability | SHAP on the best pre-specified model; plausibility discussed against known PD EEG findings (e.g. beta, theta/alpha changes) without causal claims |
 
 ## Primary outcome definition

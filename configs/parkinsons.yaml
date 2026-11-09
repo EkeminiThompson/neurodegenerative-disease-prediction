@@ -10,9 +10,11 @@ datasets:
     licence: CC0
     modality: EEG (65 ch, 250 Hz), rest + treadmill walking
     labels: {source: participants.tsv column "group", HC: 0, PD: 1}
-    severity_targets: [updrs_part_iii, updrs_total]   # no Hoehn & Yahr in participants.tsv
+    severity_targets: [updrs_part_iii, updrs_total]   # no Hoehn & Yahr anywhere in the dataset
+    extra_clinical: {item_level_updrs: sourcedata/clinical_data/full_UPDRS_data.tsv (117 PD rows), longitudinal: sourcedata/clinical_data/longitudinal_clinical_data.tsv (39 PD follow-ups, descriptive only)}
+    steward_request: "Dataset page: 'Please contact the authors' (inbalm@tlvmc.gov.il)"
   ds002778:
-    role: external_or_small_development
+    role: external_test_only   # maintainers advise against ML classification on this cohort; never a training set in primary analyses
     version: "1.0.5"
     doi: 10.18112/openneuro.ds002778.v1.0.5
     licence: CC0
@@ -32,6 +34,7 @@ eeg_preprocessing:
   min_clean_windows: 10
 features:
   bands_hz: {delta: [1, 4], theta: [4, 8], alpha: [8, 13], beta: [13, 30], gamma: [30, 45]}
-  cross_cohort_levels: [global, region]   # montages differ; channel-level is within-cohort only
+  cross_cohort_levels: [core, region]   # core = mean over the 31 scalp channels shared by both montages; channel-level is within-cohort only
+  dropped_non_scalp_channels: [EOG1-4, VREF, EXG1-8, Status]
 clinical_features_for_classification: [age, sex, moca_or_mmse]
 excluded_as_label_leaking: [updrs_part_iii, updrs_total, disease_duration, ledd, pigd_score, td_score]

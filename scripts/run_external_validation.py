@@ -1,9 +1,9 @@
 #!/usr/bin/env python
-"""Cross-cohort PD vs HC external validation: ds007526 <-> ds002778 (resting EEG).
+"""Cross-cohort PD vs HC external validation: ds007526 -> ds002778 (resting EEG).
 
 Development cohort is used for ALL fitting; the external cohort is only predicted on.
-Only features present in both cohorts are used (global_* and region-level reg_*; the
-montages differ, so channel-level features are excluded by default). Two conditions are
+Only features present in both cohorts are used: core_* (mean over the 31 scalp channels shared by both
+montages) and region-level reg_*; channel-level features are excluded. Two conditions are
 always reported side by side:
   raw          : features as extracted
   cohort-z     : each cohort z-scored on its own features (label-free, transductive)
@@ -53,13 +53,16 @@ def main() -> None:
     ap.add_argument("--b-features", required=True)
     ap.add_argument("--b-session", default="off")
     ap.add_argument("--k", type=int, default=15)
+    ap.add_argument("--include-reverse", action="store_true",
+                    help="EXPLORATORY: also train on ds002778 (15 PD). The ds002778 maintainers advise "
+                         "against ML classification on this cohort; off by default.")
     ap.add_argument("--out", default="reports")
     args = ap.parse_args()
     set_seed(SEED)
     A = load(args.a_root, args.a_features, bids.load_ds007526)
     B = load(args.b_root, args.b_features, bids.load_ds002778, args.b_session)
-    shared = sorted(set(c for c in A.columns if c.startswith(("global_", "reg_")))
-                    & set(c for c in B.columns if c.startswith(("global_", "reg_"))))
+    shared = sorted(set(c for c in A.columns if c.startswith(("core_", "reg_")))
+                    & set(c for c in B.columns if c.startswith(("core_", "reg_"))))
     print(f"A=ds007526 n={len(A)}, B=ds002778 n={len(B)}, shared features={len(shared)}")
 
     out = Path(args.out)
@@ -70,7 +73,10 @@ def main() -> None:
     print("domain shift:", json.dumps(diag, indent=2))
 
     rows = []
-    for (dev_n, dev, ext_n, ext) in [("ds007526", A, "ds002778", B), ("ds002778", B, "ds007526", A)]:
+    directions = [("ds007526", A, "ds002778", B)]
+    if args.include_reverse:
+        directions.append(("ds002778", B, "ds007526", A))
+    for (dev_n, dev, ext_n, ext) in directions:
         for cond in ("raw", "cohort-z"):
             Xd, Xe = dev[shared], ext[shared]
             if cond == "cohort-z":

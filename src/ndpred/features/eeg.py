@@ -84,6 +84,7 @@ def participant_features(
     sfreq: float,
     ch_names: list[str],
     regions: dict[str, list[str]] | None = None,
+    core_channels: list[str] | None = None,
 ) -> dict[str, float]:
     """One feature vector per recording: median over windows, then channel / region level.
 
@@ -97,6 +98,10 @@ def participant_features(
     for key, arr in wf.items():
         med = np.median(arr, axis=0)  # (n_channels,)
         out[f"global_{key}"] = float(np.mean(med))
+        if core_channels:
+            ci_core = [names.index(c.upper()) for c in core_channels if c.upper() in names]
+            if ci_core:
+                out[f"core_{key}"] = float(np.mean(med[ci_core]))
         for ci, ch in enumerate(names):
             out[f"ch_{ch}_{key}"] = float(med[ci])
         for rname, chans in (regions or {}).items():
@@ -109,8 +114,18 @@ def participant_features(
 # Coarse regions defined on the standard 10-20 / 10-10 labels common to both cohorts.
 REGIONS_1020 = {
     "frontal": ["Fp1", "Fp2", "F3", "F4", "F7", "F8", "Fz"],
-    "central": ["C3", "C4", "Cz"],
+    "central": ["C3", "C4"],  # Cz omitted: it is the recording reference (VREF) in ds007526
     "temporal": ["T7", "T8", "T3", "T4"],
     "parietal": ["P3", "P4", "Pz", "P7", "P8"],
     "occipital": ["O1", "O2", "Oz"],
 }
+
+
+# Scalp channels present in BOTH ds007526 (65-ch EGI) and ds002778 (40-ch BioSemi), verified from
+# the two cohorts' channels.tsv files. Cross-cohort features are averaged over exactly this set so
+# that montage differences cannot create a cohort effect. (ds002778's extra Cz is excluded.)
+CORE_CHANNELS = [
+    "Fp1", "AF3", "F7", "F3", "FC1", "FC5", "T7", "C3", "CP1", "CP5", "P7", "P3", "Pz", "PO3",
+    "O1", "Oz", "O2", "PO4", "P4", "P8", "CP6", "CP2", "C4", "T8", "FC6", "FC2", "F4", "F8",
+    "AF4", "Fp2", "Fz",
+]

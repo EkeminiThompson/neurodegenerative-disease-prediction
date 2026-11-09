@@ -14,10 +14,15 @@ preprocessing differences cannot masquerade as cohort effects:
 
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass
 from pathlib import Path
 
 import numpy as np
+
+# Non-scalp channels that both cohorts label as type "EEG" in channels.tsv:
+# ds007526: EOG1-4 and VREF (reference); ds002778: EXG1-8 (eye / mastoid) and Status (trigger).
+NON_SCALP = re.compile(r"^(EOG\d*|VREF|EXG\d+|STATUS|STI.*|TRIG.*|ECG.*|EMG.*)$", re.IGNORECASE)
 
 
 @dataclass(frozen=True)
@@ -47,7 +52,11 @@ def preprocess(raw, cfg: EEGConfig | None = None, mains_hz: float | None = None)
     import mne
 
     cfg = cfg or EEGConfig()
-    raw = raw.copy().pick(picks="eeg")
+    raw = raw.copy()
+    drop = [c for c in raw.ch_names if NON_SCALP.match(c)]
+    if drop:
+        raw.drop_channels(drop)
+    raw = raw.pick(picks="eeg")
     raw.rename_channels({c: c.upper() for c in raw.ch_names})
     raw.filter(cfg.l_freq, cfg.h_freq, fir_design="firwin", phase="zero", verbose="ERROR")
     if mains_hz and mains_hz < cfg.h_freq + 20:

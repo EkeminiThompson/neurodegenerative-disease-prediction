@@ -33,7 +33,7 @@ Open PD and AD datasets are small and heterogeneous, and many published classifi
 
 | Dataset | Disease | Participants (verified unless noted) | Access | Status |
 |---|---|---|---|---|
-| OpenNeuro ds007526 v1.0.2 | PD | 144 (116 PD, 28 HC); 277 EEG recordings | CC0 | metadata used; EEG pending download |
+| OpenNeuro ds007526 v1.0.2 | PD | 144 (116 PD, 28 HC); 277 EEG recordings (4.26 GB); item-level UPDRS and 39 PD follow-ups in `sourcedata/` | CC0 (page asks users to contact the authors) | metadata used; EEG pending download |
 | OpenNeuro ds002778 v1.0.5 | PD | 31 (15 PD, 16 HC); 46 EEG recordings | CC0 (contact maintainers before publishing) | metadata audited; EEG pending download |
 | PPMI | PD | not verified | application + DUA | not accessed |
 | OASIS-3 | AD | 1,378 per website (not verified at participant level) | NITRC-IR + DUA | not accessed |
@@ -83,6 +83,7 @@ To run the EEG experiments (not yet run):
 ```bash
 python scripts/extract_eeg_features.py --dataset ds007526 --root data/raw/ds007526
 python scripts/extract_eeg_features.py --dataset ds002778 --root data/raw/ds002778
+python scripts/extract_eeg_features.py --dataset ds007526 --root data/raw/ds007526 --task walk   # walking EEG (hypothesis H3)
 python scripts/run_eeg_experiments.py --dataset ds007526 --root data/raw/ds007526 \
     --features data/processed/ds007526_rest_eeg_features.csv
 python scripts/run_external_validation.py \

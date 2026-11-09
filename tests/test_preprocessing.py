@@ -23,3 +23,15 @@ def test_preprocess_resamples_windows_and_reports_qc():
     assert qc["n_windows_kept"] == win.shape[0] and usable(qc)
     feats = participant_features(win, 250.0, names)
     assert feats["ch_OZ_rel_alpha"] > 0.5
+
+
+def test_non_scalp_channels_are_dropped_before_reference_and_features():
+    raw = _toy_raw()
+    info = mne.create_info(["EOG1", "VREF"], raw.info["sfreq"], "eeg")
+    extra = mne.io.RawArray(np.zeros((2, raw.n_times)), info, verbose="ERROR")
+    raw.add_channels([extra])
+    win, names, _ = preprocess(raw, EEGConfig(), mains_hz=None)
+    assert names == ["FZ", "CZ", "PZ", "OZ"]
+    from ndpred.features.eeg import participant_features as pf
+    feats = pf(win, 250.0, names, None, ["fz", "oz", "not_present"])
+    assert "core_rel_alpha" in feats and "ch_EOG1_rel_alpha" not in feats
