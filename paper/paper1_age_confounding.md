@@ -7,7 +7,7 @@ fontsize: 10.5pt
 colorlinks: true
 ---
 
-Code, data manifests, results tables and figures: <https://github.com/EkeminiThompson/neurodegenerative-disease-prediction>. All results use the public participant-level tables of OpenNeuro dataset ds007526.
+Code, data manifests, results tables and figures: <https://github.com/EkeminiThompson/neurodegenerative-disease-prediction>. All results use the public participant-level tables of OpenNeuro datasets ds007526 (development) and ds002778 (independent test).
 
 ## Abstract
 
@@ -15,7 +15,7 @@ Code, data manifests, results tables and figures: <https://github.com/EkeminiTho
 
 **Methods.** We analysed the open (CC0) cohort ds007526 (144 participants: 116 Parkinson's disease [PD], 28 healthy controls [HC]). With repeated, stratified, participant-grouped cross-validation and participant-level bootstrap confidence intervals, we trained five classifiers on age, sex and MoCA to separate PD from HC, compared them with paired bootstrap tests, assessed calibration, and repeated the analysis on a 1:1 age-matched subset (n = 54). We also modelled UPDRS part III within PD (n = 113).
 
-**Results.** In the full cohort, age alone reached ROC-AUC 0.61-0.68 and age + sex + MoCA 0.62-0.71 (best: logistic regression 0.707, 95% CI 0.598-0.802). No model differed from another after Holm correction. In the age-matched subset, every clinical feature set was indistinguishable from chance (all 95% CIs include 0.5 or lie below it; e.g. sex + MoCA, logistic regression, 0.451, 0.291-0.616). Calibration was poor (expected calibration error 0.013-0.253). Within PD, clinical variables reduced UPDRS-III error from 10.2 to 8.3 points.
+**Results.** In the full cohort, age alone reached ROC-AUC 0.61-0.68 and age + sex + MoCA 0.62-0.71 (best: logistic regression 0.707, 95% CI 0.598-0.802). No model differed from another after Holm correction. In the age-matched subset, every clinical feature set was indistinguishable from chance (all 95% CIs include 0.5 or lie below it; e.g. sex + MoCA, logistic regression, 0.451, 0.291-0.616). Calibration was poor (expected calibration error 0.013-0.253). Models fitted on all of ds007526 and applied unchanged to the independent, age-balanced cohort ds002778 (n = 31) gave AUC 0.52 (95% CI 0.30-0.74; permutation p = 0.89) for age alone. Within PD, clinical variables reduced UPDRS-III error from 10.2 to 8.3 points.
 
 **Conclusions.** In this cohort the discriminative value of basic clinical metadata is explained by the age imbalance between groups. Any model for this cohort should be benchmarked against an age-matched baseline rather than against the full-cohort figure.
 
@@ -39,6 +39,8 @@ This paper provides (i) a **leakage-safe, confound-aware baseline** for the open
 
 **Extended analyses.** *A1:* paired participant-level bootstrap of AUC differences for all 10 model pairs, with Holm correction [5]. *A2:* reliability curves, Brier score, ECE. *A3:* every HC was matched 1:1 without replacement to the PD participant nearest in age (caliper 3 years), giving 27 + 27 participants (mean age 61.6 vs 61.3 years); models were re-evaluated with the same protocol. *A4:* out-of-fold performance by sex. *A5:* nested cross-validation (inner grouped 3-fold grid search of logistic regression C and random-forest leaf size and depth inside each outer fold; 3 repeats). **Severity (E1):** ridge and random-forest regression of UPDRS part III on age, sex, MoCA, disease duration and LEDD within PD (n = 113), against a training-mean baseline; MAE and Spearman correlation.
 
+**Independent-cohort test (X1).** Logistic regression on age, sex, or both was fitted on all 144 ds007526 participants and applied without refitting to ds002778 (UC San Diego; 15 PD, 16 HC; no shared participants), in which age is balanced between groups (63.3 vs 63.5 years, Welch p = 0.94). MoCA and MMSE are different instruments and were not used. We report AUC, a participant-level bootstrap interval (5,000 resamples) and a two-sided permutation p-value (5,000 permutations). This was specified after A3 and is exploratory.
+
 **Order of analyses.** E0 (classification) and E1 (severity) were specified and run first. A1-A5 were added after seeing E0 and are therefore exploratory. Seed 20261108; every run appends its configuration and metrics to `reports/results/runs.jsonl`.
 
 ## 4. Results
@@ -61,6 +63,8 @@ This paper provides (i) a **leakage-safe, confound-aware baseline** for the open
 
 Random forest gave 0.152 (0.051-0.288) for age alone, 0.477 (0.321-0.628) for sex + MoCA and 0.372 (0.232-0.519) for all three. Point estimates below 0.5 are a known artefact of cross-validating noise in very small balanced samples (training folds carry chance imbalances that reverse in the held-out fold); they are not evidence of an inverse relationship and are not interpreted. With 54 participants the intervals are wide (for example 0.29-0.62 for sex + MoCA), so a modest true effect cannot be excluded. The result is that *the full-cohort AUC of about 0.7 is not evidence of disease-related information*.
 
+**Independent cohort (X1).** In ds002778, age-only AUC within the cohort was 0.517, matching the absence of an age difference. The ds007526-trained models gave AUC 0.517 (0.303-0.737; permutation p = 0.89) for age, 0.513 (0.295-0.723; p = 0.91) for age + sex and 0.515 (0.338-0.690; p = 1.00) for sex, against apparent development AUCs of 0.694, 0.699 and 0.578. The signal that looked like 0.7 in the development cohort did not transfer to a cohort without the age imbalance. With 31 participants the intervals are wide and a modest effect cannot be excluded; the result agrees with, and is independent of, the age-matched subset in ds007526.
+
 **Calibration (A2).** ECE ranged from 0.013 (SVM) to 0.253 (logistic regression); Brier scores 0.151-0.217. The SVM's low ECE reflects predictions close to the 81% PD prior for nearly everyone (specificity 0 at threshold 0.5 in E0), not discrimination. None of these models yields interpretable risks.
 
 **Sex subgroups (A4, exploratory).** Apparent discrimination was concentrated in women (logistic regression 0.756, 0.612-0.875; 15 HC) and absent in men (0.600, 0.439-0.772; 12 HC); tree models were at or below chance in men (e.g. random forest 0.481, 0.301-0.660). With 12-15 controls per sex this is hypothesis-generating only.
@@ -71,15 +75,15 @@ Random forest gave 0.152 (0.051-0.288) for age alone, 0.477 (0.321-0.628) for se
 
 ## 5. Discussion
 
-**What the evidence supports.** In this open cohort, basic clinical metadata separates PD from HC only to the extent that age differs between groups: the full-cohort AUC of 0.61-0.71 collapses to chance once age is balanced. The finding is modest, specific and reproducible from the released code. Its practical consequence is a benchmark: models for this cohort should be reported with an age-matched analysis, and full-cohort AUCs near 0.7 from three demographic variables show how easily such a figure can be reached without any disease-related information.
+**What the evidence supports.** In this open cohort, basic clinical metadata separates PD from HC only to the extent that age differs between groups: the full-cohort AUC of 0.61-0.71 collapses to chance once age is balanced. The finding is modest, specific and reproducible from the released code, and it held in an independent, age-balanced cohort. Its practical consequence is a benchmark: models for this cohort should be reported with an age-matched analysis, and full-cohort AUCs near 0.7 from three demographic variables show how easily such a figure can be reached without any disease-related information.
 
 **Evaluation lessons.** Three results transfer beyond this cohort: model choice was irrelevant on low-dimensional inputs (no pair differed), nested tuning did not alter the conclusions, and threshold-based metrics and calibration were unstable at an 81% prevalence, so AUC with participant-level intervals was the only stable summary.
 
-**Limitations.** One cohort from one site, so all estimates are within-cohort; small control group (27-28 HC) and imbalanced classes; A1-A5 are exploratory; the age-matched analysis has low power and wide intervals; unknown medication state at assessment; narrow severity range (Hoehn & Yahr at most 3, MoCA at least 21); sex-subgroup estimates rest on 12-15 controls. The models are research baselines, not clinically validated tools.
+**Limitations.** Development in one cohort from one site, with a single small independent test cohort (n = 31) that used a different site and protocol; small control group (27-28 HC) and imbalanced classes; A1-A5 are exploratory; the age-matched analysis has low power and wide intervals; unknown medication state at assessment; narrow severity range (Hoehn & Yahr at most 3, MoCA at least 21); sex-subgroup estimates rest on 12-15 controls. The models are research baselines, not clinically validated tools.
 
 ## 6. Data and code availability
 
-All code, manifests (dataset version, mirror commit, checksum), configuration, result tables, figures and a JSONL run log are in the repository. Reproduction: `python scripts/fetch_metadata.py`, `python scripts/run_clinical_baseline.py --repeats 20`, `python scripts/run_clinical_extended.py --repeats 10`, `python scripts/make_figures.py`. Continuous integration runs the unit tests and linting on hand-built fixtures only.
+All code, manifests (dataset version, mirror commit, checksum), configuration, result tables, figures and a JSONL run log are in the repository. Reproduction: `python scripts/fetch_metadata.py`, `python scripts/run_clinical_baseline.py --repeats 20`, `python scripts/run_clinical_extended.py --repeats 10`, `python scripts/run_clinical_external.py`, `python scripts/make_figures.py`. Continuous integration runs the unit tests and linting on hand-built fixtures only.
 
 ## References
 

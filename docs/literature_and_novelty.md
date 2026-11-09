@@ -23,3 +23,7 @@ Scope: a targeted search in November 2026, not a systematic review. Only stateme
 ## Before any novelty claim
 
 Run a systematic search (PubMed, Scopus, medRxiv, arXiv) for "age-matched" and "confound" in PD EEG classification, and read the two unread sources.
+
+## Run in this session (real data, metadata only)
+
+`scripts/run_clinical_external.py`: age/sex models trained on all of ds007526 and applied unchanged to ds002778 (age-balanced, n=31): AUC 0.52 (95% CI 0.30-0.74), against an apparent 0.69 in the development cohort. This is an independent-cohort confirmation of the age-confounding result (Paper 1). It remains a clinical-metadata result; EEG experiments cannot be run in this environment because the signal files are not reachable from it, and novelty for EEG-based claims is unestablished.
