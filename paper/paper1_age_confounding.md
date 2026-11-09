@@ -7,7 +7,7 @@ fontsize: 10.5pt
 colorlinks: true
 ---
 
-**Status: preprint, not peer reviewed.** Code, data manifests, results tables and figures: <https://github.com/EkeminiThompson/neurodegenerative-disease-prediction>. All results use the public participant-level tables of OpenNeuro dataset ds007526.
+Code, data manifests, results tables and figures: <https://github.com/EkeminiThompson/neurodegenerative-disease-prediction>. All results use the public participant-level tables of OpenNeuro dataset ds007526.
 
 ## Abstract
 

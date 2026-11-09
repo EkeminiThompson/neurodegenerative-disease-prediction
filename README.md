@@ -18,7 +18,7 @@ No synthetic or randomly generated data is used as experimental evidence anywher
 
 ## Papers
 
-Two preprints (not peer reviewed) are in [`paper/`](paper/), each with Markdown source and PDF:
+Two manuscripts are in [`paper/`](paper/), each with Markdown source and PDF:
 
 1. [`paper1_age_confounding.pdf`](paper/paper1_age_confounding.pdf): *Age imbalance accounts for the discriminative value of clinical metadata for Parkinson's disease in an open cohort: a leakage-safe evaluation* (ds007526; experiments E0, E1, A1-A5).
 2. [`paper2_cohort_audit.pdf`](paper/paper2_cohort_audit.pdf): *A verified audit of two open Parkinson's disease EEG cohorts (OpenNeuro ds007526 and ds002778): composition, clinical variables, acquisition differences and data-quality notes.*

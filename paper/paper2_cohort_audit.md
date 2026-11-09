@@ -7,7 +7,7 @@ fontsize: 10.5pt
 colorlinks: true
 ---
 
-**Status: preprint, not peer reviewed.** Audit scripts, tables, checksums and loaders: <https://github.com/EkeminiThompson/neurodegenerative-disease-prediction>.
+Audit scripts, tables, checksums and loaders: <https://github.com/EkeminiThompson/neurodegenerative-disease-prediction>.
 
 ## Abstract
 
