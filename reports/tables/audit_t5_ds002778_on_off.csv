@@ -1,0 +1,3 @@
+variable,n_pairs,mean_off,mean_on,mean_off_minus_on,ci_lo,ci_hi,identical_on_off
+updrs_total,15,39.2,32.67,6.53,3.4,9.67,2
+hoehn_yahr,15,2.47,2.53,-0.07,-0.33,0.13,12

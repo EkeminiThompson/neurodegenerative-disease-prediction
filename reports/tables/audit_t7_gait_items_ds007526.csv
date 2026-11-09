@@ -1,0 +1,5 @@
+item,name,n,mean,sd,pct_score_ge1
+3.10,gait,113,0.92,0.66,73.9
+3.11,freezing of gait,113,0.07,0.26,7.0
+3.12,postural stability,112,0.5,0.83,33.9
+3.13,posture,112,1.05,0.86,71.3

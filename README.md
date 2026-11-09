@@ -16,9 +16,14 @@ A reproducible, leakage-safe multimodal machine-learning framework for Alzheimer
 
 No synthetic or randomly generated data is used as experimental evidence anywhere in this repository. Unit tests use tiny hand-built fixtures to test code and are never used for results.
 
-## Paper
+## Papers
 
-[`paper/manuscript.pdf`](paper/manuscript.pdf) ([source](paper/manuscript.md)): *Age confounding explains clinical-metadata classification of Parkinson's disease in an open EEG cohort: a leakage-safe baseline and a pre-specified protocol for resting and walking EEG.* Preprint, **not peer reviewed**; it reports only the completed clinical-metadata analyses and a protocol for EEG, and makes no claim about EEG performance. Rebuild with `pandoc paper/manuscript.md -o paper/manuscript.pdf --pdf-engine=xelatex --resource-path=paper:.`
+Two preprints (not peer reviewed) are in [`paper/`](paper/), each with Markdown source and PDF:
+
+1. [`paper1_age_confounding.pdf`](paper/paper1_age_confounding.pdf): *Age imbalance accounts for the discriminative value of clinical metadata for Parkinson's disease in an open cohort: a leakage-safe evaluation* (ds007526; experiments E0, E1, A1-A5).
+2. [`paper2_cohort_audit.pdf`](paper/paper2_cohort_audit.pdf): *A verified audit of two open Parkinson's disease EEG cohorts (OpenNeuro ds007526 and ds002778): composition, clinical variables, acquisition differences and data-quality notes.*
+
+Rebuild with `pandoc paper/<name>.md -o paper/<name>.pdf --pdf-engine=xelatex --resource-path=paper:.`; audit tables with `python scripts/audit_tables.py`.
 
 ## Research problem and questions
 
@@ -121,7 +126,7 @@ ROC-AUC (95% CI):
 | Ridge | 8.26 (6.93-9.69) | 0.463 |
 | Random forest | 8.60 (7.29-9.94) | 0.456 |
 
-The ridge and random forest models reduce error by roughly 2 points over the mean baseline; the intervals overlap, so this is suggestive, not conclusive. Disease duration unit is undocumented upstream. Severity categories (Hoehn & Yahr) are not available in ds007526; in ds002778 H&Y has only two levels in 15 participants and is not modelled.
+The ridge and random forest models reduce error by roughly 2 points over the mean baseline; the intervals overlap, so this is suggestive, not conclusive. Disease duration is in months (per `participants.json`). Severity categories (Hoehn & Yahr) are not available in ds007526; in ds002778 H&Y has only two levels in 15 participants and is not modelled.
 
 
 ### Extended analyses A1-A5 (ds007526, age + sex + MoCA; n = 140 with complete features: 113 PD / 27 HC)

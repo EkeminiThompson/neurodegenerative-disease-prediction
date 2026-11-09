@@ -1,0 +1,13 @@
+cohort,variable,non_missing,of
+ds007526,age,144,144
+ds007526,sex,144,144
+ds007526,moca,140,144
+ds007526,updrs_iii,139,144
+ds007526,updrs_total,139,144
+ds007526,disease_duration,116,144
+ds007526,ledd,115,144
+ds002778,age,31,31
+ds002778,sex,31,31
+ds002778,mmse,31,31
+ds002778,naart,31,31
+ds002778,disease_duration,15,31

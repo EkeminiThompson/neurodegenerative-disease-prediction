@@ -35,7 +35,7 @@ def load_ds007526(root: str | Path) -> pd.DataFrame:
             "moca": p["moca"],
             "updrs_iii": p["updrs_part_iii"],
             "updrs_total": p["updrs_total"],
-            "disease_duration": p["disease_duration"],  # unit not documented upstream
+            "disease_duration": p["disease_duration"],  # months (participants.json)
             "ledd": p["ledd"],
         }
     )

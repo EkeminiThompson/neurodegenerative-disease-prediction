@@ -15,7 +15,7 @@
 | naart | North American Adult Reading Test | points | n/a | `NAART` |
 | updrs_iii | MDS-UPDRS part III (motor) | points | `updrs_part_iii` | per-session beh JSON (not in participants.tsv) |
 | updrs_total | UPDRS total | points | `updrs_total` | beh JSON "Total UPDRS" |
-| disease_duration | time since diagnosis | **ds007526: unit undocumented**; ds002778: years | `disease_duration` | `disease_duration` |
+| disease_duration | time since diagnosis | ds007526: months; ds002778: years (both from participants.json) | `disease_duration` | `disease_duration` |
 | ledd | levodopa equivalent daily dose | mg/day | `ledd` | not available |
 | hoehn_yahr | Hoehn & Yahr stage | 1-5 | not available | beh JSON "H&Y", PD only |
 

@@ -1,0 +1,4 @@
+cohort,rows_in_channels_tsv,typed_EEG_but_non_scalp,scalp_channels
+ds007526,65,"EOG1, EOG2, EOG3, EOG4, VREF",60
+ds002778,41,"EXG1, EXG2, EXG3, EXG4, EXG5, EXG6, EXG7, EXG8, Status",32
+shared,,,31

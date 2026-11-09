@@ -1,0 +1,5 @@
+cohort,group,n,age_mean_sd,female_n_pct,cognitive_screen,cognitive_mean_sd,disease_duration_mean_sd,updrs_iii_mean_sd,updrs_total_mean_sd,ledd_mean_sd
+ds007526,HC,28,60.8 (7.5),15 (54%),MOCA,27.4 (2.0),,,,
+ds007526,PD,116,66.1 (9.4),44 (38%),MOCA,25.2 (3.1),58.6 (47.1),24.8 (12.5),40.3 (20.5),420.9 (384.2)
+ds002778,HC,16,63.5 (9.7),9 (56%),MMSE,29.2 (1.1),,,,
+ds002778,PD,15,63.3 (8.2),8 (53%),MMSE,28.9 (1.0),4.5 (3.5),,,

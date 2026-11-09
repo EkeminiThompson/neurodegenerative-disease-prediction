@@ -16,7 +16,7 @@
 - **Small, imbalanced cohort.** 144 participants (116 PD / 28 HC): wide intervals, and threshold metrics at 0.5 are unstable (e.g. the SVM predicts everyone as PD at 0.5).
 - **Single site; cross-sectional analyses.** No external cohort has been tested for E0/E1; they are within-cohort estimates only. A follow-up subset (n=39 PD) exists in `sourcedata/` and is summarised descriptively only.
 - **Selection.** PD inclusion criteria (H&Y ≤ 3, MoCA ≥ 21) restrict severity range, so E1 does not generalise to advanced PD.
-- **Undocumented units/conditions.** `disease_duration` unit and medication state at UPDRS assessment are not documented in the files read.
+- **Undocumented conditions.** Medication state at UPDRS assessment is not documented in the files read (disease duration is documented in months in `participants.json`).
 - **Mean-baseline artefact.** The negative Spearman of the training-mean regressor in E1 is a known artefact of leave-out mean prediction, not a finding.
 
 ## Limitations of the project as a whole

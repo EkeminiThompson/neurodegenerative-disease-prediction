@@ -1,0 +1,4 @@
+cohort,task,recordings,HC,PD,sampling_hz,mains_hz,eeg_channel_count_sidecar,duration_s_mean,duration_s_min,duration_s_max
+ds007526,rest,144,28,116,250,50,65,242.4,240.7,245.0
+ds007526,walk,133,23,110,250,50,65,265.1,240.6,2167.0
+ds002778,rest,46,16,30,512,50/60,40,197.0,181.0,292.0
