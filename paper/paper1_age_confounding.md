@@ -1,11 +1,13 @@
 ---
 title: "Age imbalance accounts for the discriminative value of clinical metadata for Parkinson's disease in an open cohort: a leakage-safe evaluation"
 author: "Ekemini Thompson"
-date: "9 November 2026"
-geometry: margin=2.3cm
+date: "10 November 2026"
+geometry: "margin=2.3cm"
 fontsize: 10.5pt
 colorlinks: true
 ---
+
+**Affiliation:** Nnamdi Azikiwe University, Awka, Nigeria. **Correspondence:** kaemzythompson@gmail.com. **ORCID:** 0009-0006-0072-3905.
 
 Code, data manifests, results tables and figures: <https://github.com/EkeminiThompson/neurodegenerative-disease-prediction>. All results use the public participant-level tables of OpenNeuro datasets ds007526 (development) and ds002778 (independent test).
 
@@ -45,7 +47,7 @@ This paper provides (i) a **leakage-safe, confound-aware baseline** for the open
 
 ## 4. Results
 
-![Full cohort: clinical-only ROC-AUC with 95% CI (ds007526, n = 144).](../reports/figures/e0_clinical_auc_forest.png){ width=78% }
+![Full cohort: clinical-only ROC-AUC with 95% CI (ds007526, n = 144).](../reports/figures/e0_clinical_auc_forest.png){ width=68% }
 
 **Full cohort (E0).** Age alone: logistic regression 0.681 (0.583-0.777), random forest 0.632 (0.527-0.726), SVM 0.608 (0.490-0.720), XGBoost 0.625 (0.496-0.739), LightGBM 0.631 (0.520-0.733). Age + sex + MoCA: 0.707 (0.598-0.802), 0.655 (0.538-0.756), 0.620 (0.501-0.722), 0.653 (0.536-0.756), 0.639 (0.524-0.738), respectively. Adding sex and MoCA changed AUC by at most 0.03 and the intervals overlap throughout.
 
@@ -59,9 +61,11 @@ This paper provides (i) a **leakage-safe, confound-aware baseline** for the open
 | Sex + MoCA | 0.451 | 0.291-0.616 |
 | Age + sex + MoCA | 0.433 | 0.276-0.598 |
 
-![Age-matched subset (n = 54): all clinical intervals include chance or lie below it.](../reports/figures/a3_age_matched_forest.png){ width=78% }
+![Age-matched subset (n = 54): all clinical intervals include chance or lie below it.](../reports/figures/a3_age_matched_forest.png){ width=68% }
 
 Random forest gave 0.152 (0.051-0.288) for age alone, 0.477 (0.321-0.628) for sex + MoCA and 0.372 (0.232-0.519) for all three. Point estimates below 0.5 are a known artefact of cross-validating noise in very small balanced samples (training folds carry chance imbalances that reverse in the held-out fold); they are not evidence of an inverse relationship and are not interpreted. With 54 participants the intervals are wide (for example 0.29-0.62 for sex + MoCA), so a modest true effect cannot be excluded. The result is that *the full-cohort AUC of about 0.7 is not evidence of disease-related information*.
+
+\newpage
 
 **Independent cohort (X1).** In ds002778, age-only AUC within the cohort was 0.517, matching the absence of an age difference. The ds007526-trained models gave AUC 0.517 (0.303-0.737; permutation p = 0.89) for age, 0.513 (0.295-0.723; p = 0.91) for age + sex and 0.515 (0.338-0.690; p = 1.00) for sex, against apparent development AUCs of 0.694, 0.699 and 0.578. The signal that looked like 0.7 in the development cohort did not transfer to a cohort without the age imbalance. With 31 participants the intervals are wide and a modest effect cannot be excluded; the result agrees with, and is independent of, the age-matched subset in ds007526.
 
@@ -84,6 +88,18 @@ Random forest gave 0.152 (0.051-0.288) for age alone, 0.477 (0.321-0.628) for se
 ## 6. Data and code availability
 
 All code, manifests (dataset version, mirror commit, checksum), configuration, result tables, figures and a JSONL run log are in the repository. Reproduction: `python scripts/fetch_metadata.py`, `python scripts/run_clinical_baseline.py --repeats 20`, `python scripts/run_clinical_extended.py --repeats 10`, `python scripts/run_clinical_external.py`, `python scripts/make_figures.py`. Continuous integration runs the unit tests and linting on hand-built fixtures only.
+
+## Declarations
+
+**Ethics.** This is a secondary analysis of de-identified, openly licensed (CC0) participant-level tables from OpenNeuro datasets ds007526 and ds002778. No new data were collected and no additional ethical approval was sought.
+
+**Competing interests.** The author declares no competing interests.
+
+**Funding.** This work received no specific funding.
+
+**Data availability.** All data are public on OpenNeuro (ds007526 v1.0.2, doi:10.18112/openneuro.ds007526.v1.0.2; ds002778 v1.0.5). Code, manifests, results tables and figures are at <https://github.com/EkeminiThompson/neurodegenerative-disease-prediction> (archived at doi:10.5281/zenodo.24102101).
+
+**AI usage.** An AI assistant (Anthropic's Claude) was used to help write the analysis code, run the analyses and draft the text. The author directed the work and is responsible for the content, and all reported numbers come from the released code and data.
 
 ## References
 
