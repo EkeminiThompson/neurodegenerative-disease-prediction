@@ -9,6 +9,10 @@ authors:
     given-names: Ekemini
     orcid: "https://orcid.org/0009-0006-0072-3905"
     affiliation: "Nnamdi Azikiwe University"
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.24102101"
+    description: "Zenodo archive of the software (v0.1.0)"
 repository-code: "https://github.com/EkeminiThompson/neurodegenerative-disease-prediction"
 license: MIT
 keywords:

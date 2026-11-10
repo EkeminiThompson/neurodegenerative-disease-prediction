@@ -1,5 +1,7 @@
 # Multilevel Prediction of Alzheimer's and Parkinson's Disease Using Clinical, Neuroimaging and EEG Features with External Validation
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24102101.svg)](https://doi.org/10.5281/zenodo.24102101)
+
 A reproducible, leakage-safe multimodal machine-learning framework for Alzheimer's disease (AD) and Parkinson's disease (PD) detection, severity assessment and independent external validation, built on real, openly licensed or access-controlled patient datasets only. **Research prototype: not a clinically validated diagnostic device.**
 
 ## Project status (read this first)
@@ -171,7 +173,7 @@ reports/      figures, tables, results (JSONL run log)
 
 ## Citation
 
-See [`CITATION.cff`](CITATION.cff). If you use the datasets, cite their original publications (listed in `docs/dataset_audit.md`).
+Archived on Zenodo: [10.5281/zenodo.24102101](https://doi.org/10.5281/zenodo.24102101). See [`CITATION.cff`](CITATION.cff). If you use the datasets, cite their original publications (listed in `docs/dataset_audit.md`).
 
 ## Licence
 
