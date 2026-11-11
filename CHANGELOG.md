@@ -2,6 +2,11 @@
 
 All notable changes to this project are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project uses [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Added
+- Like-for-like full-cohort vs age-matched comparison with paired bootstrap tests (`scripts/run_matched_vs_full.py`, `reports/tables/x2_full_vs_matched.csv`).
+
 ## [0.1.0] - 2026-11-10
 
 ### Added
